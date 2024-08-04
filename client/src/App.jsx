@@ -72,23 +72,21 @@ const App = () => {
     socket.current.emit("new-post", sendPost);
   }, [sendPost]);
 
-  useEffect(() => {
-    socket.current.on("receiveLike", (like) => {
-      if (like) {
-        setPosts(
-          posts?.map((pt) =>
-            pt?._id === like?._id
-              ? {
-                  ...pt,
-                  likes: like?.likes,
-                }
-              : pt
-          )
-        );
-        //setSinglePost({ ...singlePost, likes: like.likes });
-      }
-    });
-  }, []);
+  socket.current.on("receiveLike", (like) => {
+    if (like && posts) {
+      setPosts(
+        posts?.map((pt) =>
+          pt?._id === like?._id
+            ? {
+                ...pt,
+                likes: like?.likes,
+              }
+            : pt
+        )
+      );
+      //setSinglePost({ ...singlePost, likes: like.likes });
+    }
+  });
 
   // useEffect(() => {
 
