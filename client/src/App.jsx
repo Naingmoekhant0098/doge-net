@@ -74,7 +74,7 @@ const App = () => {
 
   useEffect(() => {
     socket.current.on("receiveLike", (like) => {
-      if (like && posts) {
+      if (like) {
         setPosts(
           posts?.map((pt) =>
             pt?._id === like?._id
@@ -120,6 +120,10 @@ const App = () => {
         }
       );
       if (resLike.status === 200) {
+        socket.current.emit("send-like", {
+          ...resLike.data.post,
+          senderId: currentUser?._id,
+        });
         // setPosts(
         //   posts.map((pt) =>
         //     pt._id === resLike.data.post._id
@@ -153,11 +157,6 @@ const App = () => {
             socket.current.emit("sendNotification", resNofi.data);
           }
         }
-
-        socket.current.emit("send-like", {
-          ...resLike.data.post,
-          senderId: currentUser?._id,
-        });
 
         // setSendLike();
       }

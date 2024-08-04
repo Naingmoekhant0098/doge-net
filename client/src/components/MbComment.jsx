@@ -182,16 +182,16 @@ const MbComment = ({
             setIsOpenGift(false);
             socket.current.emit("new-comment", resData.data.comment);
 
-            setPosts(
-              posts?.map((pt) =>
-                pt?._id === resData.data.comment?.postId
-                  ? {
-                      ...pt,
-                      NoOfComments: pt.NoOfComments + 1,
-                    }
-                  : pt
-              )
-            );
+            // setPosts(
+            //   posts?.map((pt) =>
+            //     pt?._id === resData.data.comment?.postId
+            //       ? {
+            //           ...pt,
+            //           NoOfComments: pt.NoOfComments + 1,
+            //         }
+            //       : pt
+            //   )
+            // );
 
             const resNofi = await axios.put(
               "https://doge-net.onrender.com/user/updateNotification",
