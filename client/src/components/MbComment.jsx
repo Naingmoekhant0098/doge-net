@@ -248,10 +248,10 @@ const MbComment = ({
   useEffect(() => {
     try {
       socket.current.on("new-comment-comment1", (data) => {
-        console.log(data)
-        // if (data) {
-        //   setComments((prev) => [data, ...prev]);
-        // }
+       
+        if (data) {
+          setComments((prev) => [data, ...prev]);
+        }
       });
     } catch (error) {
       console.log(error.message);
