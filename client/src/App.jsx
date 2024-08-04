@@ -39,10 +39,13 @@ const App = () => {
   useEffect(() => {
     try {
       const fetchPost = async () => {
-        const ress = await axios.get("https://doge-net.onrender.com/post/getPosts", {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        });
+        const ress = await axios.get(
+          "https://doge-net.onrender.com/post/getPosts",
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
 
         if (ress.status === 200) {
           setPosts(ress.data.posts);
@@ -69,9 +72,8 @@ const App = () => {
     socket.current.emit("new-post", sendPost);
   }, [sendPost]);
 
-  socket.current.on(
-    "receiveLike",
-    (like) => {
+  useEffect(() => {
+    socket.current.on("receiveLike", (like) => {
       if (like && posts) {
         setPosts(
           posts?.map((pt) =>
@@ -83,18 +85,14 @@ const App = () => {
               : pt
           )
         );
-        setSinglePost({ ...singlePost, likes: like.likes });
+        //setSinglePost({ ...singlePost, likes: like.likes });
       }
-    },
-    []
-  );
-
-  useEffect(() => {
-    socket.current.emit("send-like", {
-      ...sendLike,
-      senderId: currentUser?._id,
     });
-  }, [sendLike]);
+  }, []);
+
+  // useEffect(() => {
+
+  // }, [sendLike]);
 
   // const dispatch = useDispatch();
 
@@ -122,23 +120,23 @@ const App = () => {
         }
       );
       if (resLike.status === 200) {
-        setPosts(
-          posts.map((pt) =>
-            pt._id === resLike.data.post._id
-              ? {
-                  ...pt,
-                  likes: resLike.data.post.likes,
-                }
-              : pt
-          )
-        );
+        // setPosts(
+        //   posts.map((pt) =>
+        //     pt._id === resLike.data.post._id
+        //       ? {
+        //           ...pt,
+        //           likes: resLike.data.post.likes,
+        //         }
+        //       : pt
+        //   )
+        // );
 
         if (
           resLike?.data?.post?.likes?.includes(currentUser?._id) &&
           currentUser?._id !== resLike?.data?.post?.userId
         ) {
           const resNofi = await axios.put(
-            "http://localhost:3000/user/updateNotification",
+            "https://doge-net.onrender.com/user/updateNotification",
             {
               senderId: currentUser?._id,
               receiverId: resLike?.data?.post?.userId,
@@ -156,11 +154,16 @@ const App = () => {
           }
         }
 
-        setSendLike(resLike.data.post);
+        socket.current.emit("send-like", {
+          ...resLike.data.post,
+          senderId: currentUser?._id,
+        });
+
+        // setSendLike();
       }
-      if (postId === singlePost._id) {
-        setSinglePost({ ...singlePost, likes: resLike.data.post.likes });
-      }
+      // if (postId === singlePost._id) {
+      //   setSinglePost({ ...singlePost, likes: resLike.data.post.likes });
+      // }
     } catch (error) {}
   };
 
@@ -183,7 +186,7 @@ const App = () => {
     } catch (error) {
       console.log(error.message);
     }
-  });
+  }, []);
   useEffect(() => {
     try {
       socket.current.on("new-reply-receive", (data) => {
@@ -203,7 +206,7 @@ const App = () => {
     } catch (error) {
       console.log(error.message);
     }
-  });
+  }, []);
   return (
     <div className=" max-w-6xl mx-auto">
       {location.pathname !== "/log-in" && location.pathname !== "/sign-up" && (
@@ -279,7 +282,10 @@ const App = () => {
               }
             />
           </Route>
-          <Route path="/repost" element={<Repost setSendPost={setSendPost}/>} />
+          <Route
+            path="/repost"
+            element={<Repost setSendPost={setSendPost} />}
+          />
           <Route path="/log-in" element={<Login />} />
           <Route path="/sign-up" element={<SignUp />} />
         </Routes>
