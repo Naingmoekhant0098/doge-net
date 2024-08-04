@@ -44,6 +44,25 @@ const MbComment = ({
   const [replyData, setReplyData] = useState(null);
   const navigate = useNavigate();
   const [comments, setComments] = useState(null);
+  
+  useEffect(() => {
+    const fetchPost = async () => {
+      const ress = await axios.get(
+        `https://doge-net.onrender.com/post/getComment?postId=${postId}`,
+        {
+          headers: { "Content-Type": "application/json" },
+          withCredentials: true,
+        }
+      );
+
+      if (ress.status === 200) {
+          setComments(ress.data.comments);
+        
+      }
+    };
+
+    fetchPost();
+  }, [postId]);
 
   const uploadHandler = (e) => {
     if (e.target.files) {
@@ -178,43 +197,45 @@ const MbComment = ({
               withCredentials: true,
             }
           );
-
+ 
           if (resData.status === 200) {
+            socket.current.emit("new-comment", resData?.data?.comment);
             setContent("");
             setCommentData(null);
             setIsOpenGift(false);
-            socket.current.emit("new-comment", resData.data.comment);
+             
+         
 
             //setComment((prev) => [...prev, resData.data.comment]);
 
-            const resNofi = await axios.put(
-              "https://doge-net.onrender.com/user/updateNotification",
-              {
-                senderId: currentUser?._id,
-                receiverId: postedUser,
-                type: "commented",
-                postId: resData.data.comment?.postId,
-              },
-              {
-                headers: { "Content-Type": "application/json" },
-                withCredentials: true,
-              }
-            );
+            // const resNofi = await axios.put(
+            //   "https://doge-net.onrender.com/user/updateNotification",
+            //   {
+            //     senderId: currentUser?._id,
+            //     receiverId: postedUser,
+            //     type: "commented",
+            //     postId: resData.data.comment?.postId,
+            //   },
+            //   {
+            //     headers: { "Content-Type": "application/json" },
+            //     withCredentials: true,
+            //   }
+            // );
 
-            if (resNofi.status === 200) {
-              socket.current.emit("sendNotification", resNofi.data);
-            }
+            // if (resNofi.status === 200) {
+            //   socket.current.emit("sendNotification", resNofi.data);
+            // }
 
-            toast(
-              "success commented",
+            // toast(
+            //   "success commented",
 
-              {
-                style: {
-                  text: "10px",
-                  padding: "3px",
-                },
-              }
-            );
+            //   {
+            //     style: {
+            //       text: "10px",
+            //       padding: "3px",
+            //     },
+            //   }
+            // );
           }
         } catch (error) {
           console.log(error.message);
@@ -226,15 +247,16 @@ const MbComment = ({
   useEffect(() => {
     try {
       socket.current.on("new-comment-receive", (data) => {
-        if (data) {
-          console.log(data);
-          setComments((prev) => [data, ...prev]);
+        
+        if (data && comments) {
+          //setComments((prev) => [data, ...prev]);
+          console.log(comments)
         }
       });
     } catch (error) {
       console.log(error.message);
     }
-  }, []);
+  },[]);
 
   useEffect(() => {
     if (isOpenm) {
@@ -245,23 +267,6 @@ const MbComment = ({
     };
   }, [isOpenm]);
 
-  useEffect(() => {
-    const fetchPost = async () => {
-      const ress = await axios.get(
-        `https://doge-net.onrender.com/post/getComment?postId=${postId}`,
-        {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        }
-      );
-
-      if (ress.status === 200) {
-        setComments(ress.data.comments);
-      }
-    };
-
-    fetchPost();
-  }, [postId]);
 
   const likeComment = async (postId, commentId, userId) => {
     try {
@@ -507,7 +512,7 @@ const MbComment = ({
   };
 
   socket.current.on("new-reply-receive", (data) => {
-    if (data) {
+    if (data && comments) {
       setComments(
         comments?.map((cmt) =>
           cmt?._id === data?.commentId

@@ -226,19 +226,19 @@ const Dogg = ({
     } catch (error) {}
   };
  
-  useEffect(() => {
-    try {
-      socket.current.on("new-comment-receive", (data) => {
-        if (data) {
-          setComment((prev)=>[...prev,data])
+  // useEffect(() => {
+  //   try {
+  //     socket.current.on("new-comment-receive", (data) => {
+  //       if (data) {
+  //         setComment((prev)=>[...prev,data])
 
           
-        }
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  }, []);
+  //       }
+  //     });
+  //   } catch (error) {
+  //     console.log(error.message);
+  //   }
+  // }, []);
   return (
     <div className="">
       <div className=" w-full flex gap-3">
