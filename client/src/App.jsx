@@ -61,7 +61,7 @@ const App = () => {
     TimeAgo.addDefaultLocale(en);
     TimeAgo.addLocale(ru);
   }, [TimeAgo]);
-
+  // 
   const location = useLocation();
   socket.current = io("https://doge-net.onrender.com");
   useEffect(() => {
