@@ -73,7 +73,7 @@ const App = () => {
   }, [sendPost]);
 
   socket.current.on("receiveLike", (like) => {
-    console.log(like)
+     
     if (like && posts) {
       setPosts(
         posts?.map((pt) =>

@@ -483,84 +483,86 @@ const Dogg = ({
           {post?.isRepost ? (
             <RepostPost postId={post?.tweet_id} />
           ) : (
-            (post?.images?.length > 0 && (
-              <div className=" mt-2 flex  w-full   pr-0 md:pr-2 ">
-                <div className="  md:hidden flex gap-2  overflow-x-scroll    w-full   px-2 scrollBar scroll-smooth ">
-                  {post?.images?.map((ptt, index) => {
-                    return (
-                      <img
-                        key={index}
-                        src={ptt}
-                        className="w-[250px]  min-h-[250px]  object-cover rounded-lg"
-                        alt="not found"
-                        onClick={() => {
-                          setIsShow(true);
-
-                          setCurrentIndex(index);
-                        }}
-                      />
-                    );
-                  })}
-                </div>
-
-                <div className=" hidden md:block relative  group">
-                  {post.images.length > 2 && (
-                    <>
-                      <MdNavigateNext
-                        className=" absolute -right-24 top-[40%] z-30   cursor-pointer transition-all duration-300 opacity-0 invisible group-hover:visible group-hover:opacity-80 bg-[#1e1f22]  p-1 text-[50px] rounded-full"
-                        onClick={() => swp?.current?.slideNext()}
-                      />
-                      <MdNavigateBefore
-                        className=" absolute -left-24  top-[40%] z-30   cursor-pointer transition-all duration-300 opacity-0 invisible group-hover:visible group-hover:opacity-80 bg-[#1e1f22]  p-1 text-[50px] rounded-full"
-                        onClick={() => swp?.current?.slidePrev()}
-                      />
-                    </>
-                  )}
-
-                  <Swiper
-                    slidesPerView={2}
-                    spaceBetween={10}
-                    freeMode={true}
-                    modules={[FreeMode, Controller]}
-                    onBeforeInit={(swpp) => {
-                      swp.current = swpp;
-                    }}
-                    className="  m-0 p-0 w-[580px]  hidden md:block  h-auto overflow-hidden "
-                  >
+            <>
+              {post?.images?.length > 0 && (
+                <div className=" mt-2 flex  w-full   pr-0 md:pr-2 ">
+                  <div className="  md:hidden flex gap-2  overflow-x-scroll    w-full   px-2 scrollBar scroll-smooth ">
                     {post?.images?.map((ptt, index) => {
                       return (
-                        <SwiperSlide key={index} className=" cursor-pointer">
-                          {/* < ReactPlayer url='https://youtu.be/8m_GMfmAM6U'  className="max-w-[200px] cursor-pointer md:max-w-[300px] h-[400px] object-cover rounded-lg" /> */}
+                        <img
+                          key={index}
+                          src={ptt}
+                          className="w-[250px]  min-h-[250px]  object-cover rounded-lg"
+                          alt="not found"
+                          onClick={() => {
+                            setIsShow(true);
 
-                          <img
-                            src={ptt}
-                            className="max-w-auto min-h-[300px] object-cover rounded-lg"
-                            alt=""
-                            onClick={() => {
-                              setIsShow(true);
-
-                              setCurrentIndex(index);
-                            }}
-                          />
-                        </SwiperSlide>
+                            setCurrentIndex(index);
+                          }}
+                        />
                       );
                     })}
-                  </Swiper>
+                  </div>
+
+                  <div className=" hidden md:block relative  group">
+                    {post.images.length > 2 && (
+                      <>
+                        <MdNavigateNext
+                          className=" absolute -right-24 top-[40%] z-30   cursor-pointer transition-all duration-300 opacity-0 invisible group-hover:visible group-hover:opacity-80 bg-[#1e1f22]  p-1 text-[50px] rounded-full"
+                          onClick={() => swp?.current?.slideNext()}
+                        />
+                        <MdNavigateBefore
+                          className=" absolute -left-24  top-[40%] z-30   cursor-pointer transition-all duration-300 opacity-0 invisible group-hover:visible group-hover:opacity-80 bg-[#1e1f22]  p-1 text-[50px] rounded-full"
+                          onClick={() => swp?.current?.slidePrev()}
+                        />
+                      </>
+                    )}
+
+                    <Swiper
+                      slidesPerView={2}
+                      spaceBetween={10}
+                      freeMode={true}
+                      modules={[FreeMode, Controller]}
+                      onBeforeInit={(swpp) => {
+                        swp.current = swpp;
+                      }}
+                      className="  m-0 p-0 w-[580px]  hidden md:block  h-auto overflow-hidden "
+                    >
+                      {post?.images?.map((ptt, index) => {
+                        return (
+                          <SwiperSlide key={index} className=" cursor-pointer">
+                            {/* < ReactPlayer url='https://youtu.be/8m_GMfmAM6U'  className="max-w-[200px] cursor-pointer md:max-w-[300px] h-[400px] object-cover rounded-lg" /> */}
+
+                            <img
+                              src={ptt}
+                              className="max-w-auto min-h-[300px] object-cover rounded-lg"
+                              alt=""
+                              onClick={() => {
+                                setIsShow(true);
+
+                                setCurrentIndex(index);
+                              }}
+                            />
+                          </SwiperSlide>
+                        );
+                      })}
+                    </Swiper>
+                  </div>
                 </div>
-              </div>
-            ),
-            post?.gif && (
-              <img
-                src={post?.gif}
-                className=" w-[250px] mt-2 min-h-[300px]  object-cover rounded-lg"
-                alt="not found"
-                onClick={() => {
-                  setIsShow(true);
-                  setCurrentImg(post?.gif);
-                  setCurrentIndex(0);
-                }}
-              />
-            ))
+              )}
+              {post?.gif && (
+                <img
+                  src={post?.gif}
+                  className=" w-[250px] mt-2 min-h-[300px]  object-cover rounded-lg"
+                  alt="not found"
+                  onClick={() => {
+                    setIsShow(true);
+                    setCurrentImg(post?.gif);
+                    setCurrentIndex(0);
+                  }}
+                />
+              )}
+            </>
           )}
 
           <div className=" mt-3 flex items-center ">
