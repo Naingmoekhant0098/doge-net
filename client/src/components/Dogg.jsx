@@ -78,7 +78,7 @@ import toast from "react-hot-toast";
 const Dogg = ({
   post,
   likePost,
-  
+
   socket,
 }) => {
   const swp = useRef(null);
@@ -115,9 +115,7 @@ const Dogg = ({
       );
 
       if (ress.status === 200) {
-        
         setUser(ress.data.user);
-       
       }
     };
     fetchUser();
@@ -156,7 +154,6 @@ const Dogg = ({
       if (ress.status === 200) {
         dispatch(updateFollow(ress.data.user));
         if (ress.data.user.followings.includes(user?._id)) {
-          
           const resNofi = await axios.put(
             "https://doge-net.onrender.com/user/updateNotification",
             {
@@ -225,20 +222,18 @@ const Dogg = ({
       }
     } catch (error) {}
   };
- 
-  // useEffect(() => {
-  //   try {
-  //     socket.current.on("new-comment-receive", (data) => {
-  //       if (data) {
-  //         setComment((prev)=>[...prev,data])
 
-          
-  //       }
-  //     });
-  //   } catch (error) {
-  //     console.log(error.message);
-  //   }
-  // }, []);
+  useEffect(() => {
+    try {
+      socket.current.on("new-comment-receive", (data) => {
+        if (data) {
+          setComment((prev) => [...prev, data]);
+        }
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
   return (
     <div className="">
       <div className=" w-full flex gap-3">
@@ -294,7 +289,7 @@ const Dogg = ({
                   {user?.username}
                 </div>
               </Link>
-               
+
               <div className=" opacity-65 text-[13px]  font-normal mt-[3px]">
                 {/* {moment(post?.createdAt).fromNow()} */}
                 <span className=" pr-[3px]">.</span>
@@ -618,7 +613,6 @@ const Dogg = ({
               setIsOpenm={setIsOpenm}
               postId={post?._id}
               socket={socket}
-              
               postedUser={post?.userId}
             />
 

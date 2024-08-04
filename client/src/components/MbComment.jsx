@@ -249,14 +249,14 @@ const MbComment = ({
       socket.current.on("new-comment-receive", (data) => {
         
         if (data && comments) {
-          //setComments((prev) => [data, ...prev]);
-          console.log(comments)
+           setComments((prev) => [data, ...prev]);
+           
         }
       });
     } catch (error) {
       console.log(error.message);
     }
-  },[]);
+  });
 
   useEffect(() => {
     if (isOpenm) {
