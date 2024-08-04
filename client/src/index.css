@@ -1,0 +1,52 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body{
+  background-color: #000000;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  scroll-behavior: smooth;
+}
+
+.scrollBar{
+  scroll-behavior: smooth;
+  transition: all .3s ease;
+}
+
+.postText{
+ background-color: inherit;
+  border: none!important;
+  outline: none!important;
+  
+}
+.postText:focus{
+  outline-style: solid!important;
+   outline-color: red;
+   outline: none!important;
+   border: none!important;
+  
+}
+
+
+.scrollBar::-webkit-scrollbar{
+  display: none;
+}
+.isHeart{
+  color: red;
+  animation-name: liked;
+  animation-duration: .3s;
+}
+ 
+ 
+@keyframes liked {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+.show{
+  transform: translateY(0px);
+}
+.hide{
+  transform: translateY(-60px);
+}
