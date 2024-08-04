@@ -22,7 +22,7 @@ const sever = http.createServer(app);
 
 const io = require("socket.io")(sever, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: ['http://localhost:5173','https://doge-net.onrender.com'],
     methods: ["GET", "POST"],
   },
 });
