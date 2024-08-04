@@ -24,6 +24,8 @@ import CommentSection from "../components/CommentSection";
 const PostPage = ({ likePost, post, setSinglePost, socket , posts,setPosts }) => {
   const [user, setUser] = useState(null);
   const [open, setOpen] = useState(false);
+  const [comments,setComments] = useState(null)
+  const [replies,setReplies] = useState(null)
 
   const [isOpen, setIsOpen] = useState(false);
   const swp = useRef(null);
@@ -42,6 +44,8 @@ const PostPage = ({ likePost, post, setSinglePost, socket , posts,setPosts }) =>
       );
       if (ress.status === 200) {
         setSinglePost(ress.data.posts[0]);
+        setComments(ress.data.comments)
+        setReplies(ress.data.replies)
       }
     };
 
@@ -310,8 +314,8 @@ const PostPage = ({ likePost, post, setSinglePost, socket , posts,setPosts }) =>
             <div className=" flex items-center gap-1 transition-all duration-300 hover:bg-[#1e1f22] cursor-pointer p-2 rounded-full">
               <FiMessageCircle className=" text-xl" />
               <div className=" text-sm">
-                {post?.NoOfComments}
-                {/* {comments?.length + replies?.length} */}
+                {/* {post?.NoOfComments} */}
+                {comments?.length + replies?.length}
               </div>
             </div>
           </Link>
@@ -337,6 +341,10 @@ const PostPage = ({ likePost, post, setSinglePost, socket , posts,setPosts }) =>
       <div className=" my-4 text-md">Comments</div>
 
       <CommentSection
+      setCmt={setComments}
+      setRep={setReplies}
+      cmt={comments}
+      rps={replies}
         post={post}
         setPost={setSinglePost}
         socket={socket}

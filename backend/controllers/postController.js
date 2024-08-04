@@ -115,14 +115,14 @@ exports.addComment = async (req, res) => {
     });
 
     const comment = await Bcomment.save();
-    await Post.updateOne(
-      { _id: req.body.postId },
-      {
-        $push: { comments: comment._id },
+    // await Post.updateOne(
+    //   { _id: req.body.postId },
+    //   {
+    //     $push: { comments: comment._id },
 
-        $inc: { NoOfComments: 1 },
-      }
-    );
+    //     $inc: { NoOfComments: 1 },
+    //   }
+    // );
 
     res.status(200).json({
       comment,
@@ -215,12 +215,12 @@ exports.addReply = async (req, res) => {
       userId: req.body.userId,
     });
 
-    await Post.updateOne(
-      { _id: req.body.postId },
-      {
-        $inc: { NoOfComments: 1 },
-      }
-    );
+    // await Post.updateOne(
+    //   { _id: req.body.postId },
+    //   {
+    //     $inc: { NoOfComments: 1 },
+    //   }
+    // );
 
     const replies = await Breply.save();
     await Comment.updateOne(

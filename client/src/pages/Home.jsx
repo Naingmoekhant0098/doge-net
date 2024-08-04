@@ -4,9 +4,8 @@ import { useSelector } from "react-redux";
 import Cookie from "js-cookie";
 
 const Home = ({
-  posts,
   likePost,
-  setPosts,
+  posts,
 
   socket,
 }) => {
@@ -27,8 +26,7 @@ const Home = ({
             post={post}
             key={i}
             likePost={likePost}
-            setPosts={setPosts}
-            posts={posts}
+             
           />
         );
       })}

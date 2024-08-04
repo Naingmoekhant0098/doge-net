@@ -24,10 +24,12 @@ const MbComment = ({
   isOpenm,
   setIsOpenm,
   postId,
-  posts,
-  setPosts,
+  cmt,
+  rps,
   postedUser,
   socket,
+  setComment,
+  setRep,
 }) => {
   const [commentData, setCommentData] = useState(null);
   const [tempFiles, setTempFiles] = useState(null);
@@ -42,6 +44,7 @@ const MbComment = ({
   const [replyData, setReplyData] = useState(null);
   const navigate = useNavigate();
   const [comments, setComments] = useState(null);
+
   const uploadHandler = (e) => {
     if (e.target.files) {
       const temp_fileLink = URL.createObjectURL(e.target.files[0]);
@@ -99,17 +102,18 @@ const MbComment = ({
       if (resData.status === 200) {
         // setComments((prev) => [resData.data.comment, ...prev]);
         socket.current.emit("new-comment", resData.data.comment);
+        //setComment((prev) => [...prev, resData.data.comment]);
 
-        setPosts(
-          posts?.map((pt) =>
-            pt?._id === resData.data.comment?.postId
-              ? {
-                  ...pt,
-                  NoOfComments: pt.NoOfComments + 1,
-                }
-              : pt
-          )
-        );
+        // setPosts(
+        //   posts?.map((pt) =>
+        //     pt?._id === resData.data.comment?.postId
+        //       ? {
+        //           ...pt,
+        //           NoOfComments: pt.NoOfComments + 1,
+        //         }
+        //       : pt
+        //   )
+        // );
 
         const resNofi = await axios.put(
           "https://doge-net.onrender.com/user/updateNotification",
@@ -152,7 +156,6 @@ const MbComment = ({
     }
   };
 
-
   const commentHandler = async (e) => {
     if (!currentUser) {
       navigate("/log-in");
@@ -181,6 +184,8 @@ const MbComment = ({
             setCommentData(null);
             setIsOpenGift(false);
             socket.current.emit("new-comment", resData.data.comment);
+
+            //setComment((prev) => [...prev, resData.data.comment]);
 
             // setPosts(
             //   posts?.map((pt) =>
@@ -235,16 +240,7 @@ const MbComment = ({
         if (data) {
           setComments((prev) => [data, ...prev]);
 
-          setPosts(
-            posts?.map((pt) =>
-              pt?._id === data?.postId
-                ? {
-                    ...pt,
-                    NoOfComments: pt.NoOfComments + 1,
-                  }
-                : pt
-            )
-          );
+          setComment([...cmt, data]);
         }
       });
     } catch (error) {
@@ -351,7 +347,7 @@ const MbComment = ({
     setIsReply(status);
     setCommentId(commentId);
     setReplyUser(user);
-    
+
     // setReply(`@${user}`);
   };
 
@@ -431,16 +427,7 @@ const MbComment = ({
           socket.current.emit("sendNotification", resNofi.data);
         }
 
-        setPosts(
-          posts?.map((pt) =>
-            pt?._id === resData.data.reply?.postId
-              ? {
-                  ...pt,
-                  NoOfComments: pt.NoOfComments + 1,
-                }
-              : pt
-          )
-        );
+        //setRep((prev) => [...prev, resData.data.reply]);
 
         toast(
           "success commented",
@@ -493,6 +480,8 @@ const MbComment = ({
               senderId: currentUser?._id,
             });
 
+            //setRep([...rps, resData.data.reply]);
+
             const resNofi = await axios.put(
               "https://doge-net.onrender.com/user/updateNotification",
               {
@@ -506,8 +495,6 @@ const MbComment = ({
                 withCredentials: true,
               }
             );
-
-             
 
             if (resNofi.status === 200) {
               socket.current.emit("sendNotification", resNofi.data);
@@ -543,6 +530,8 @@ const MbComment = ({
             : cmt
         )
       );
+
+      setRep([...rps, data]);
     }
   });
 
@@ -578,8 +567,6 @@ const MbComment = ({
                     postId={postId}
                     controlReply={controlReply}
                     socket={socket}
-                    posts={posts}
-                    setPosts={setPosts}
                   />
                 );
               })
@@ -622,7 +609,10 @@ const MbComment = ({
                   )}
                 </div>
                 <div className=" w-full flex-1 flex justify-between items-center p-3 rounded-md bg-[#343536]">
-                  <span className=" text-sm"> Replying to {replyUser?.username}</span>
+                  <span className=" text-sm">
+                    {" "}
+                    Replying to {replyUser?.username}
+                  </span>
                   <RxCross2
                     className=" cursor-pointer "
                     onClick={() => {

@@ -230,7 +230,7 @@ const App = () => {
               path="/searchResults"
               element={<SearchResults socket={socket} />}
             />
-            <Route element={<PreventRoute />}>
+             
               <Route
                 path="/doge"
                 element={
@@ -254,7 +254,7 @@ const App = () => {
                 }
               />
               <Route path="/editProfile" element={<EditProfile />} />
-            </Route>
+             
             <Route
               path="/post/:id"
               element={

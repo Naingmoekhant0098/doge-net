@@ -21,9 +21,11 @@ import { useNavigate } from "react-router-dom";
 const CommentSection = ({
   post,
   setPost,
-  posts,
-  setPosts,
-  socket
+  setCmt,
+  setRep,
+  socket,
+  cmt,
+  rps,
 }) => {
   const [commentData, setCommentData] = useState(null);
   const [tempFiles, setTempFiles] = useState(null);
@@ -32,7 +34,7 @@ const CommentSection = ({
   const [file, setFile] = useState(null);
   const { currentUser } = useSelector((state) => state.user);
   const navigate = useNavigate();
-  const [comments , setComments] = useState(null)
+  const [comments, setComments] = useState(null);
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -91,7 +93,7 @@ const CommentSection = ({
   const postSave = async (savedFile, toId) => {
     if (savedFile) {
       const resData = await axios.put(
-        `http://localhost:3000/post/addComment`,
+        `https://doge-net.onrender.com/post/addComment`,
         {
           postId: post?._id,
           comment: content,
@@ -107,7 +109,27 @@ const CommentSection = ({
 
       if (resData.status === 200) {
         // setComments((prev) => [resData.data.comment, ...prev]);
-        setSendComment(resData.data.comment);
+        socket.current.emit("new-comment", resData.data.comment);
+        //setCmt((prev) => [...prev, resData.data.comment]);
+
+        const resNofi = await axios.put(
+          "https://doge-net.onrender.com/user/updateNotification",
+          {
+            senderId: currentUser?._id,
+            receiverId: postedUser,
+            type: "commented",
+            postId: resData.data.comment?.postId,
+          },
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
+
+        if (resNofi.status === 200) {
+          socket.current.emit("sendNotification", resNofi.data);
+        }
+
         setContent("");
         setCommentData(null);
         setIsOpenGift(false);
@@ -159,7 +181,38 @@ const CommentSection = ({
             setCommentData(null);
             setIsOpenGift(false);
             socket.current.emit("new-comment", resData.data.comment);
-            
+
+            //setCmt((prev) => [...prev, resData.data.comment]);
+
+            // setPosts(
+            //   posts?.map((pt) =>
+            //     pt?._id === resData.data.comment?.postId
+            //       ? {
+            //           ...pt,
+            //           NoOfComments: pt.NoOfComments + 1,
+            //         }
+            //       : pt
+            //   )
+            // );
+
+            const resNofi = await axios.put(
+              "https://doge-net.onrender.com/user/updateNotification",
+              {
+                senderId: currentUser?._id,
+                receiverId: postedUser,
+                type: "commented",
+                postId: resData.data.comment?.postId,
+              },
+              {
+                headers: { "Content-Type": "application/json" },
+                withCredentials: true,
+              }
+            );
+
+            if (resNofi.status === 200) {
+              socket.current.emit("sendNotification", resNofi.data);
+            }
+
             toast(
               "success commented",
 
@@ -177,18 +230,24 @@ const CommentSection = ({
       }
     }
   };
- 
   useEffect(() => {
     try {
       socket.current.on("new-comment-receive", (data) => {
-        if (data && post) {
+        if (data) {
           setComments((prev) => [data, ...prev]);
-           setPost({
-            ...post,
-            NoOfComments: post?.NoOfComments + 1
 
-           })
-           
+          setCmt([...cmt, data]);
+
+          // setPosts(
+          //   posts?.map((pt) =>
+          //     pt?._id === data?.postId
+          //       ? {
+          //           ...pt,
+          //           NoOfComments: pt.NoOfComments + 1,
+          //         }
+          //       : pt
+          //   )
+          // );
         }
       });
     } catch (error) {
@@ -196,29 +255,22 @@ const CommentSection = ({
     }
   }, []);
 
-  useEffect(() => {
-    socket.current.on("new-reply-receive", (data) => {
-      
-      if (data) {
-        setComments(
-          comments?.map((cmt) =>
-            cmt?._id === data?.commentId
-              ? {
-                  ...cmt,
-                  replies: [...cmt?.replies, data?._id],
-                }
-              : cmt
-          )
-        );
+  socket.current.on("new-reply-receive", (data) => {
+    if (data) {
+      setComments(
+        comments?.map((cmt) =>
+          cmt?._id === data?.commentId
+            ? {
+                ...cmt,
+                replies: [...cmt?.replies, data?._id],
+              }
+            : cmt
+        )
+      );
 
-        setPost({
-          ...post,
-          NoOfComments: post?.NoOfComments + 1
-
-         })
-      }
-    });
-  },[]);
+      setRep([...rps, data]);
+    }
+  });
   socket.current.on("receiveLikeComment", (like) => {
     if (like && comments) {
       setComments(
@@ -234,7 +286,6 @@ const CommentSection = ({
     }
   });
   const likeComment = async (postId, commentId, userId) => {
-     
     try {
       const rest = await axios.put(
         "https://doge-net.onrender.com/post/likeComment",
@@ -247,7 +298,7 @@ const CommentSection = ({
 
       if (rest.status === 200) {
         // setLikeComment(rest.data.comment);
- 
+
         socket.current.emit("like-comment", {
           ...rest.data.comment,
           senderId: currentUser?._id,
@@ -376,7 +427,6 @@ const CommentSection = ({
           comments?.map((cmt, index) => {
             return (
               <Comment
-                
                 key={index}
                 cmt={cmt}
                 likeComment={likeComment}

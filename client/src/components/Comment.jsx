@@ -25,8 +25,7 @@ const Comment = ({
   controlReply,
   setLikeReply,
   socket,
-  setPosts,
-  posts,
+ 
 }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState(null);
@@ -233,7 +232,6 @@ const Comment = ({
   };
 
   const handleFollow = async () => {
-    
     try {
       const ress = await axios.put(
         "https://doge-net.onrender.com/post/followUser",
@@ -274,7 +272,7 @@ const Comment = ({
         }
       }
     } catch (error) {
-      console.log(error.message)
+      console.log(error.message);
     }
   };
 
@@ -311,7 +309,11 @@ const Comment = ({
               <div className=" text-sm">{user?.username}</div>
               <div className=" text-[12px] opacity-50 mt-[3px]">
                 {/* {moment(cmt?.createdAt).fromNow()} */}
-                <ReactTimeAgo date={cmt?.createdAt} locale="en-US" timeStyle={'twitter'}/>
+                <ReactTimeAgo
+                  date={cmt?.createdAt}
+                  locale="en-US"
+                  timeStyle={"twitter"}
+                />
               </div>
             </div>
 

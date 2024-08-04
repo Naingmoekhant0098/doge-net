@@ -9,15 +9,18 @@ import { useNavigate } from "react-router-dom";
 const Search = () => {
   const { currentUser } = useSelector((state) => state.user);
   const [users, setUsers] = useState(null);
-  const [searchQuery,setSearchQuery] = useState('')
-  const navigate  = useNavigate()
+  const [searchQuery, setSearchQuery] = useState("");
+  const navigate = useNavigate();
   useEffect(() => {
     try {
       const fetchPost = async () => {
-        const ress = await axios.get("http://localhost:3000/user/getAllUser", {
-          headers: { "Content-Type": "application/json" },
-          withCredentials: true,
-        });
+        const ress = await axios.get(
+          "https://doge-net.onrender.com/user/getAllUser",
+          {
+            headers: { "Content-Type": "application/json" },
+            withCredentials: true,
+          }
+        );
 
         if (ress.status === 200) {
           setUsers(ress.data);
@@ -29,7 +32,7 @@ const Search = () => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    navigate(`/searchResults?q=${searchQuery}`)
+    navigate(`/searchResults?q=${searchQuery}`);
   };
 
   return (
@@ -38,17 +41,17 @@ const Search = () => {
       <div className=" relative px-2">
         <form onSubmit={submitHandler}>
           <input
-            className=" mt-4 w-full   p-2  rounded-xl px-3 pl-10  bg-gray-600 bg-opacity-85  text-white focus:outline-none "
+            className=" mt-4 w-full   p-2  rounded-xl px-3 pl-10   bg-inherit border border-white border-opacity-50   text-white focus:outline-none "
             placeholder=" Search"
             value={searchQuery}
-            onChange={(e)=>setSearchQuery(e.target.value)}
+            onChange={(e) => setSearchQuery(e.target.value)}
           />
         </form>
         <IoSearch className=" absolute top-6 mt-[3px] left-5  text-xl" />
       </div>
       <div className=" mt-6 flex flex-col">
         {users?.length > 0 &&
-          users?.map((user,i) => {
+          users?.map((user, i) => {
             return (
               user?._id !== currentUser?._id && (
                 <User key={i} user={user} users={users} setUsers={setUsers} />

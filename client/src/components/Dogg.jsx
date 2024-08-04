@@ -78,9 +78,7 @@ import toast from "react-hot-toast";
 const Dogg = ({
   post,
   likePost,
-  setPosts,
-
-  posts,
+  
   socket,
 }) => {
   const swp = useRef(null);
@@ -94,7 +92,8 @@ const Dogg = ({
   const { currentUser } = useSelector((state) => state.user);
   const [isOpenm, setIsOpenm] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
-
+  const [Comment, setComment] = useState(null);
+  const [Reply, setReply] = useState(null);
   const dispatch = useDispatch();
   const [isShareShow, setIsShareShow] = useState(false);
   useEffect(() => {
@@ -117,6 +116,8 @@ const Dogg = ({
 
       if (ress.status === 200) {
         setUser(ress.data.user);
+        setComment(ress.data.comments);
+        setReply(ress.data.replies);
       }
     };
     fetchUser();
@@ -276,14 +277,16 @@ const Dogg = ({
 
         <div className="flex-1 h-auto  ">
           <div className=" relative -mt-1   flex justify-between items-center">
-            <div className=" flex group items-center  gap-2 font-semibold">
+            <div className=" flex group items-center  gap-1 font-semibold">
               <Link to={`/@${user?.username}`}>
                 <div className="  cursor-pointer   hover:underline">
                   {user?.username}
                 </div>
               </Link>
-              <div className=" opacity-65 text-[13px]  font-normal mt-1">
+               
+              <div className=" opacity-65 text-[13px]  font-normal mt-[3px]">
                 {/* {moment(post?.createdAt).fromNow()} */}
+                <span className=" pr-[3px]">.</span>
                 <ReactTimeAgo
                   date={post?.createdAt}
                   locale="en-US"
@@ -460,7 +463,7 @@ const Dogg = ({
 
           <div>
             {/* <Link to={`/post/${post?._id}`}> */}
-            <div className=" mb-3 text-wrap text-sm  font-normal opacity-85 tracking-wide md:text-[15px] whitespace-pre">
+            <div className="  mb-3 text-wrap text-sm  font-normal opacity-85 tracking-wide md:text-[15px] whitespace-pre">
               {parts?.map((part, index) => {
                 if (part.startsWith("#")) {
                   return (
@@ -485,14 +488,14 @@ const Dogg = ({
           ) : (
             <>
               {post?.images?.length > 0 && (
-                <div className=" mt-2 flex  w-full   pr-0 md:pr-2 ">
+                <div className="  flex  w-full   pr-0 md:pr-2 ">
                   <div className="  md:hidden flex gap-2  overflow-x-scroll    w-full   px-2 scrollBar scroll-smooth ">
                     {post?.images?.map((ptt, index) => {
                       return (
                         <img
                           key={index}
                           src={ptt}
-                          className="w-[250px]  min-h-[250px]  object-cover rounded-lg"
+                          className="w-[300px]  min-h-[250px]  object-cover rounded-lg"
                           alt="not found"
                           onClick={() => {
                             setIsShow(true);
@@ -553,7 +556,7 @@ const Dogg = ({
               {post?.gif && (
                 <img
                   src={post?.gif}
-                  className=" w-[250px] mt-2 min-h-[300px]  object-cover rounded-lg"
+                  className=" w-[250px]  min-h-[300px]  object-cover rounded-lg"
                   alt="not found"
                   onClick={() => {
                     setIsShow(true);
@@ -565,7 +568,7 @@ const Dogg = ({
             </>
           )}
 
-          <div className=" mt-3 flex items-center ">
+          <div className=" mt-1 flex items-center ">
             {post?.likes.includes(currentUser?._id) ? (
               <div
                 className=" flex items-center gap-1  transition-all duration-300 hover:bg-[#1e1f22] cursor-pointer   p-2 rounded-full"
@@ -596,12 +599,15 @@ const Dogg = ({
             </div>
 
             <MbComment
+              setComment={setComment}
+              setRep={setReply}
+              cmt={Comment}
+              rps={Reply}
               isOpenm={isOpenm}
               setIsOpenm={setIsOpenm}
               postId={post?._id}
               socket={socket}
-              posts={posts}
-              setPosts={setPosts}
+              
               postedUser={post?.userId}
             />
 
@@ -626,8 +632,10 @@ const Dogg = ({
               className=" text-[14px] cursor-pointer"
               onClick={() => setIsOpenm(!isOpenm)}
             >
-              {post?.NoOfComments ? post?.NoOfComments : 0}
-              {post?.NoOfComments > 1 ? " replies" : " reply"}
+              {Comment?.length + Reply?.length > 0
+                ? Comment?.length + Reply?.length
+                : 0}
+              {Comment?.length + Reply?.length > 1 ? " replies" : " reply"}
             </div>
             <span>
               <BsDot />
@@ -639,7 +647,7 @@ const Dogg = ({
         </div>
       </div>
 
-      <hr className=" mt-12  opacity-10" />
+      <hr className=" mt-10  opacity-10" />
 
       {isShow && (
         <ImageShow
