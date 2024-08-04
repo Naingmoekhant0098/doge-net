@@ -115,9 +115,9 @@ const Dogg = ({
       );
 
       if (ress.status === 200) {
+        
         setUser(ress.data.user);
-        setComment(ress.data.comments);
-        setReply(ress.data.replies);
+       
       }
     };
     fetchUser();
@@ -136,7 +136,8 @@ const Dogg = ({
         }
       );
       if (ress.status === 200) {
-        setCountRps(ress.data.replies);
+        setComment(ress.data.comments);
+        setReply(ress.data.replies);
       }
     };
 
@@ -155,11 +156,7 @@ const Dogg = ({
       if (ress.status === 200) {
         dispatch(updateFollow(ress.data.user));
         if (ress.data.user.followings.includes(user?._id)) {
-          // socket.current.emit("sendNotification", {
-          //   senderId: currentUser?._id,
-          //   receiverId: user?._id,
-          //   type: "follow",
-          // });
+          
           const resNofi = await axios.put(
             "https://doge-net.onrender.com/user/updateNotification",
             {
@@ -228,6 +225,20 @@ const Dogg = ({
       }
     } catch (error) {}
   };
+ 
+  useEffect(() => {
+    try {
+      socket.current.on("new-comment-receive", (data) => {
+        if (data) {
+          setComment((prev)=>[...prev,data])
+
+          
+        }
+      });
+    } catch (error) {
+      console.log(error.message);
+    }
+  }, []);
   return (
     <div className="">
       <div className=" w-full flex gap-3">

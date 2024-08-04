@@ -187,17 +187,6 @@ const MbComment = ({
 
             //setComment((prev) => [...prev, resData.data.comment]);
 
-            // setPosts(
-            //   posts?.map((pt) =>
-            //     pt?._id === resData.data.comment?.postId
-            //       ? {
-            //           ...pt,
-            //           NoOfComments: pt.NoOfComments + 1,
-            //         }
-            //       : pt
-            //   )
-            // );
-
             const resNofi = await axios.put(
               "https://doge-net.onrender.com/user/updateNotification",
               {
@@ -238,9 +227,8 @@ const MbComment = ({
     try {
       socket.current.on("new-comment-receive", (data) => {
         if (data) {
+          console.log(data);
           setComments((prev) => [data, ...prev]);
-
-          setComment([...cmt, data]);
         }
       });
     } catch (error) {
