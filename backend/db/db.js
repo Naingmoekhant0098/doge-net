@@ -3,7 +3,7 @@ require("dotenv").config();
 
 const db = async () => {
   await mongodb
-    .connect(process.env.local_str)
+    .connect(process.env.mongodb_str)
     .then((res) => {
       console.log("Mongoose Sever connected successfully");
     })

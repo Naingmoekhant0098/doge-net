@@ -17,7 +17,7 @@ app.use(
     credentials: true,
   })
 );
-const _dir = path.resolve();
+const __dir = path.resolve();
 const sever = http.createServer(app);
 
 const io = require("socket.io")(sever, {
