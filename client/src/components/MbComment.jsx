@@ -203,11 +203,12 @@ const MbComment = ({
             setContent("");
             setCommentData(null);
             setIsOpenGift(false);
+          
            
 
             socket.current.emit("new-comment1", resData.data.comment);
 
-            //setComment((prev) => [...prev, resData.data.comment]);
+           // setComment((prev) => [...prev, resData.data.comment]);
 
             const resNofi = await axios.put(
               "https://doge-net.onrender.com/user/updateNotification",
@@ -246,16 +247,14 @@ const MbComment = ({
   };
 
   useEffect(() => {
-    try {
-      socket.current.on("new-comment-comment1", (data) => {
-       console.log(data)
+     
+      socket.current.on("new-comment-receive1", (data) => {
+ 
         if (data) {
           setComments((prev) => [data, ...prev]);
         }
       });
-    } catch (error) {
-      console.log(error.message);
-    }
+     
   }, []);
 
   useEffect(() => {
