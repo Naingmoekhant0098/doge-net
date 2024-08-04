@@ -225,7 +225,7 @@ const Dogg = ({
 
   useEffect(() => {
     try {
-      socket.current.on("new-comment-receive", (data) => {
+      socket.current.on("new-comment-receive1", (data) => {
         if (data) {
           setComment((prev) => [...prev, data]);
         }
@@ -234,6 +234,12 @@ const Dogg = ({
       console.log(error.message);
     }
   }, []);
+
+  socket.current.on("new-reply-receive1", (data) => {
+    if (data) {
+      setReply((prev) => [...prev, data]);
+    }
+  });
   return (
     <div className="">
       <div className=" w-full flex gap-3">

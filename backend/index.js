@@ -9,11 +9,11 @@ const authRouter = require("./routers/authRouter");
 const userRouter = require("./routers/userRouter");
 const postRouter = require("./routers/postRouter");
 require("dotenv").config();
-const path = require('path');
+const path = require("path");
 
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://doge-net.onrender.com"],
+    origin: ["http://localhost:5173", "https://doge-net.onrender.com"],
     credentials: true,
   })
 );
@@ -22,11 +22,10 @@ const sever = http.createServer(app);
 
 const io = require("socket.io")(sever, {
   cors: {
-    origin: ['http://localhost:5173','https://doge-net.onrender.com'],
+    origin: ["http://localhost:5173", "https://doge-net.onrender.com"],
     methods: ["GET", "POST"],
   },
 });
-
 
 const activeUsers = [];
 
@@ -44,11 +43,18 @@ io.on("connection", (socket) => {
   socket.on("new-post", (post) => {
     io.emit("new-post-receive", post);
   });
-  socket.on("new-comment", (post) => {
-    io.emit("new-comment-receive", post);
+  socket.on("new-comment1", (post) => {
+    console.log(post);
+    io.emit("new-comment-receive1", post);
   });
-  socket.on("new-reply", (post) => {
-    io.emit("new-reply-receive", post);
+  socket.on("new-comment2", (post) => {
+    io.emit("new-comment-receive2", post);
+  });
+  socket.on("new-reply1", (post) => {
+    io.emit("new-reply-receive1", post);
+  });
+  socket.on("new-reply2", (post) => {
+    io.emit("new-reply-receive2", post);
   });
 
   socket.on("send-like", (data) => {
@@ -67,9 +73,9 @@ io.on("connection", (socket) => {
 
   socket.on("sendNotification", (data) => {
     const isUser = activeUsers?.find((u) => u.userId === data.receiverId);
- 
+
     if (isUser) {
-     // console.log("User exist");
+      // console.log("User exist");
       io.to(isUser.sockedId).emit("receiveNotification", data);
     }
   });
@@ -98,10 +104,10 @@ app.use("/auth", authRouter);
 app.use("/user", userRouter);
 app.use("/post", postRouter);
 
-app.use(express.static(path.join(__dir,'client/dist')))
-app.use('*',(req,res)=>{
-    res.sendFile(path.join(__dir,'client','dist','index.html'))
-})
+app.use(express.static(path.join(__dir, "client/dist")));
+app.use("*", (req, res) => {
+  res.sendFile(path.join(__dir, "client", "dist", "index.html"));
+});
 
 sever.listen(3000, (req, res) => {
   console.log("Sever is running at port 3000");

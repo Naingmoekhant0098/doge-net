@@ -180,7 +180,7 @@ const CommentSection = ({
             setContent("");
             setCommentData(null);
             setIsOpenGift(false);
-            socket.current.emit("new-comment", resData.data.comment);
+            socket.current.emit("new-comment2", resData.data.comment);
 
             //setCmt((prev) => [...prev, resData.data.comment]);
 
@@ -232,22 +232,13 @@ const CommentSection = ({
   };
   useEffect(() => {
     try {
-      socket.current.on("new-comment-receive", (data) => {
+      socket.current.on("new-comment-receive2", (data) => {
         if (data) {
           setComments((prev) => [data, ...prev]);
 
-          setCmt([...cmt, data]);
+         // setCmt([...cmt, data]);
 
-          // setPosts(
-          //   posts?.map((pt) =>
-          //     pt?._id === data?.postId
-          //       ? {
-          //           ...pt,
-          //           NoOfComments: pt.NoOfComments + 1,
-          //         }
-          //       : pt
-          //   )
-          // );
+           
         }
       });
     } catch (error) {
@@ -255,7 +246,7 @@ const CommentSection = ({
     }
   }, []);
 
-  socket.current.on("new-reply-receive", (data) => {
+  socket.current.on("new-reply-receive2", (data) => {
     if (data) {
       setComments(
         comments?.map((cmt) =>
@@ -268,7 +259,7 @@ const CommentSection = ({
         )
       );
 
-      setRep([...rps, data]);
+      //setRep([...rps, data]);
     }
   });
   socket.current.on("receiveLikeComment", (like) => {

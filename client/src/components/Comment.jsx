@@ -25,7 +25,6 @@ const Comment = ({
   controlReply,
   setLikeReply,
   socket,
- 
 }) => {
   const { currentUser } = useSelector((state) => state.user);
   const [user, setUser] = useState(null);
@@ -120,7 +119,7 @@ const Comment = ({
         setIsOpenGift(false);
         setTempFiles(null);
         setFile(null);
-        socket.current.emit("new-reply", {
+        socket.current.emit("new-reply2", {
           ...resData.data.reply,
           senderId: currentUser?._id,
         });
