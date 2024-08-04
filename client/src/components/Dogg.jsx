@@ -507,7 +507,7 @@ const Dogg = ({
                         <img
                           key={index}
                           src={ptt}
-                          className="w-[300px]  min-h-[250px]  object-cover rounded-lg"
+                          className="w-[250px]  min-h-[250px]  object-cover rounded-lg"
                           alt="not found"
                           onClick={() => {
                             setIsShow(true);
