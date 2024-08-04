@@ -11,7 +11,7 @@ const User = ({ user, users, setUsers }) => {
   const handleFollow = async () => {
     try {
       const ress = await axios.put(
-        "http://localhost:3000/post/followUser",
+        "https://doge-net.onrender.com/post/followUser",
         { followUser: user._id, followedUser: currentUser?._id },
         {
           headers: { "Content-Type": "application/json" },

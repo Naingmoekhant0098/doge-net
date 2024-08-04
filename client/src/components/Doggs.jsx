@@ -9,7 +9,7 @@ const Doggs = ({ posts, setPosts, socket }) => {
     
     try {
       const resLike = await axios.put(
-        "http://localhost:3000/post/likePost",
+        "https://doge-net.onrender.com/post/likePost",
         { postId, userId: currentUser?._id },
         {
           headers: { "Content-Type": "application/json" },

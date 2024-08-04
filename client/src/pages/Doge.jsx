@@ -81,7 +81,7 @@ const Doge = ({ posts, setPosts, setSendPost }) => {
   const postSave = async (testFiles, toId) => {
     try {
       const resData = await axios.post(
-        "http://localhost:3000/post/createPost",
+        "https://doge-net.onrender.com/post/createPost",
         {
           content: content,
           images: testFiles,
@@ -116,7 +116,7 @@ const Doge = ({ posts, setPosts, setSendPost }) => {
       if (content !== "" || gif || tempFiles.length > 0) {
         try {
           const resData = await axios.post(
-            "http://localhost:3000/post/createPost",
+            "https://doge-net.onrender.com/post/createPost",
             { content: content, gif: gif, userId: currentUser?._id }
           );
 

@@ -108,7 +108,7 @@ const Dogg = ({
   useEffect(() => {
     const fetchUser = async () => {
       const ress = await axios.get(
-        `http://localhost:3000/user/getUser?userId=${post?.userId}`,
+        `https://doge-net.onrender.com/user/getUser?userId=${post?.userId}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -128,7 +128,7 @@ const Dogg = ({
   useEffect(() => {
     const fetchPost = async () => {
       const ress = await axios.get(
-        `http://localhost:3000/post/getPosts?postId=${post?._id}`,
+        `https://doge-net.onrender.com/post/getPosts?postId=${post?._id}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -144,7 +144,7 @@ const Dogg = ({
   const handleFollow = async () => {
     try {
       const ress = await axios.put(
-        "http://localhost:3000/post/followUser",
+        "https://doge-net.onrender.com/post/followUser",
         { followUser: user._id, followedUser: currentUser?._id },
         {
           headers: { "Content-Type": "application/json" },
@@ -160,7 +160,7 @@ const Dogg = ({
           //   type: "follow",
           // });
           const resNofi = await axios.put(
-            "http://localhost:3000/user/updateNotification",
+            "https://doge-net.onrender.com/user/updateNotification",
             {
               senderId: currentUser?._id,
               receiverId: user?._id,
@@ -189,7 +189,7 @@ const Dogg = ({
   const saveHandler = async (id) => {
     try {
       const ress = await axios.put(
-        "http://localhost:3000/user/savePost",
+        "https://doge-net.onrender.com/user/savePost",
         { postId: id, userId: currentUser?._id },
         {
           headers: { "Content-Type": "application/json" },

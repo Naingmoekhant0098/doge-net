@@ -39,7 +39,7 @@ const App = () => {
   useEffect(() => {
     try {
       const fetchPost = async () => {
-        const ress = await axios.get("http://localhost:3000/post/getPosts", {
+        const ress = await axios.get("https://doge-net.onrender.com/post/getPosts", {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
         });
@@ -60,7 +60,7 @@ const App = () => {
   }, [TimeAgo]);
 
   const location = useLocation();
-  socket.current = io("http://localhost:3000");
+  socket.current = io("https://doge-net.onrender.com");
   useEffect(() => {
     socket.current.emit("new-user-add", currentUser?._id);
   }, [currentUser]);
@@ -114,7 +114,7 @@ const App = () => {
   const likePost = async (postId) => {
     try {
       const resLike = await axios.put(
-        "http://localhost:3000/post/likePost",
+        "https://doge-net.onrender.com/post/likePost",
         { postId, userId: currentUser?._id },
         {
           headers: { "Content-Type": "application/json" },

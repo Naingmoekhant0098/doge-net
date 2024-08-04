@@ -37,7 +37,7 @@ const CommentSection = ({
   useEffect(() => {
     const fetchPost = async () => {
       const ress = await axios.get(
-        `http://localhost:3000/post/getComment?postId=${post?._id}`,
+        `https://doge-net.onrender.com/post/getComment?postId=${post?._id}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -141,7 +141,7 @@ const CommentSection = ({
       if (content !== "" || commentData?.gif || tempFiles) {
         try {
           const resData = await axios.put(
-            `http://localhost:3000/post/addComment`,
+            `https://doge-net.onrender.com/post/addComment`,
             {
               postId: post?._id,
               comment: content,
@@ -159,21 +159,7 @@ const CommentSection = ({
             setCommentData(null);
             setIsOpenGift(false);
             socket.current.emit("new-comment", resData.data.comment);
-            // setPost({
-            //   ...post,
-            //   NoOfComments: post.NoOfComments + 1
-  
-            //  })
-            // setPosts(
-            //   posts?.map((pt) =>
-            //     pt?._id === resData.data.comment?.postId
-            //       ? {
-            //           ...pt,
-            //           NoOfComments: pt.NoOfComments + 1,
-            //         }
-            //       : pt
-            //   )
-            // );
+            
             toast(
               "success commented",
 
@@ -251,7 +237,7 @@ const CommentSection = ({
      
     try {
       const rest = await axios.put(
-        "http://localhost:3000/post/likeComment",
+        "https://doge-net.onrender.com/post/likeComment",
         { postId, commentId, userId },
         {
           headers: { "Content-Type": "application/json" },

@@ -23,7 +23,7 @@ const Profile = ({ likePost, socket, posts, setPosts }) => {
     const fetchUser = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:3000/user/getUser?username=${name?.replace(
+          `https://doge-net.onrender.com/user/getUser?username=${name?.replace(
             "@",
             ""
           )}`,
@@ -48,7 +48,7 @@ const Profile = ({ likePost, socket, posts, setPosts }) => {
   const handleFollow = async () => {
     try {
       const ress = await axios.put(
-        "http://localhost:3000/post/followUser",
+        "https://doge-net.onrender.com/post/followUser",
         { followUser: user._id, followedUser: currentUser?._id },
         {
           headers: { "Content-Type": "application/json" },
@@ -62,7 +62,7 @@ const Profile = ({ likePost, socket, posts, setPosts }) => {
         }
         if (ress.data.user.followings.includes(user?._id)) {
           const resNofi = await axios.put(
-            "http://localhost:3000/user/updateNotification",
+            "https://doge-net.onrender.com/user/updateNotification",
             {
               senderId: currentUser?._id,
               receiverId: user?._id,

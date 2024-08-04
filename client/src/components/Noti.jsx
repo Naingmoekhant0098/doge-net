@@ -8,7 +8,7 @@ const Noti = ({ data }) => {
   useEffect(() => {
     const fetchUser = async () => {
       const ress = await axios.get(
-        `http://localhost:3000/user/getUser?userId=${data?.senderId}`,
+        `https://doge-net.onrender.com/user/getUser?userId=${data?.senderId}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,

@@ -44,7 +44,7 @@ const Comment = ({
   useEffect(() => {
     const fetchUser = async () => {
       const ress = await axios.get(
-        `http://localhost:3000/user/getUser?userId=${cmt?.userId}`,
+        `https://doge-net.onrender.com/user/getUser?userId=${cmt?.userId}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -98,7 +98,7 @@ const Comment = ({
   const postSave = async (savedFile, toId) => {
     if (savedFile) {
       const resData = await axios.put(
-        `http://localhost:3000/post/addReply`,
+        `https://doge-net.onrender.com/post/addReply`,
         {
           postId: postId,
           commentId: commentId,
@@ -127,7 +127,7 @@ const Comment = ({
         });
 
         const resNofi = await axios.put(
-          "http://localhost:3000/user/updateNotification",
+          "https://doge-net.onrender.com/user/updateNotification",
           {
             senderId: currentUser?._id,
             receiverId: resData.data.reply?.userId,
@@ -171,7 +171,7 @@ const Comment = ({
       if (content !== "" || commentData?.gif || tempFiles) {
         try {
           const resData = await axios.put(
-            `http://localhost:3000/post/addReply`,
+            `https://doge-net.onrender.com/post/addReply`,
             {
               postId: postId,
               commentId: commentId,
@@ -197,7 +197,7 @@ const Comment = ({
             });
 
             const resNofi = await axios.put(
-              "http://localhost:3000/user/updateNotification",
+              "https://doge-net.onrender.com/user/updateNotification",
               {
                 senderId: currentUser?._id,
                 receiverId: cmt?.userId,
@@ -236,7 +236,7 @@ const Comment = ({
     
     try {
       const ress = await axios.put(
-        "http://localhost:3000/post/followUser",
+        "https://doge-net.onrender.com/post/followUser",
         { followUser: user._id, followedUser: currentUser?._id },
         {
           headers: { "Content-Type": "application/json" },
@@ -250,7 +250,7 @@ const Comment = ({
         }
         if (ress.data.user.followings.includes(user?._id)) {
           const resNofi = await axios.put(
-            "http://localhost:3000/user/updateNotification",
+            "https://doge-net.onrender.com/user/updateNotification",
             {
               senderId: currentUser?._id,
               receiverId: user?._id,

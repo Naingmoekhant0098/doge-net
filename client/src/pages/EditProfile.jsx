@@ -32,7 +32,7 @@ const EditProfile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       const res = await axios.get(
-        `http://localhost:3000/user/getUser?username=${currentUser?.username}`,
+        `https://doge-net.onrender.com/user/getUser?username=${currentUser?.username}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -83,7 +83,7 @@ const EditProfile = () => {
   const saveInfo = async () => {
     try {
       const ress = await axios.put(
-        `http://localhost:3000/user/updateProfile`,
+        `https://doge-net.onrender.com/user/updateProfile`,
         { ...formData, _id: currentUser?._id },
         {
           headers: { "Content-Type": "application/json" },

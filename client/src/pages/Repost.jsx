@@ -19,7 +19,7 @@ const Repost = ({ setSendPost }) => {
   const submitHandler = async () => {
     try {
       const resData = await axios.post(
-        "http://localhost:3000/post/createPost",
+        "https://doge-net.onrender.com/post/createPost",
         {
           content: content,
           tweet_id: postId,

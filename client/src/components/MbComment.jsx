@@ -82,7 +82,7 @@ const MbComment = ({
   const postSave = async (savedFile, toId) => {
     if (savedFile) {
       const resData = await axios.put(
-        `http://localhost:3000/post/addComment`,
+        `https://doge-net.onrender.com/post/addComment`,
         {
           postId: postId,
           comment: content,
@@ -112,7 +112,7 @@ const MbComment = ({
         );
 
         const resNofi = await axios.put(
-          "http://localhost:3000/user/updateNotification",
+          "https://doge-net.onrender.com/user/updateNotification",
           {
             senderId: currentUser?._id,
             receiverId: postedUser,
@@ -163,7 +163,7 @@ const MbComment = ({
       if (content !== "" || commentData?.gif || tempFiles) {
         try {
           const resData = await axios.put(
-            `http://localhost:3000/post/addComment`,
+            `https://doge-net.onrender.com/post/addComment`,
             {
               postId: postId,
               comment: content,
@@ -194,7 +194,7 @@ const MbComment = ({
             );
 
             const resNofi = await axios.put(
-              "http://localhost:3000/user/updateNotification",
+              "https://doge-net.onrender.com/user/updateNotification",
               {
                 senderId: currentUser?._id,
                 receiverId: postedUser,
@@ -264,7 +264,7 @@ const MbComment = ({
   useEffect(() => {
     const fetchPost = async () => {
       const ress = await axios.get(
-        `http://localhost:3000/post/getComment?postId=${postId}`,
+        `https://doge-net.onrender.com/post/getComment?postId=${postId}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -282,7 +282,7 @@ const MbComment = ({
   const likeComment = async (postId, commentId, userId) => {
     try {
       const rest = await axios.put(
-        "http://localhost:3000/post/likeComment",
+        "https://doge-net.onrender.com/post/likeComment",
         { postId, commentId, userId },
         {
           headers: { "Content-Type": "application/json" },
@@ -303,7 +303,7 @@ const MbComment = ({
           currentUser?._id !== rest.data.comment?.userId
         ) {
           const resNofi = await axios.put(
-            "http://localhost:3000/user/updateNotification",
+            "https://doge-net.onrender.com/user/updateNotification",
             {
               senderId: currentUser?._id,
               receiverId: rest.data.comment?.userId,
@@ -386,7 +386,7 @@ const MbComment = ({
   const ReplySave = async (savedFile, toId) => {
     if (savedFile) {
       const resData = await axios.put(
-        `http://localhost:3000/post/addReply`,
+        `https://doge-net.onrender.com/post/addReply`,
         {
           postId: postId,
           commentId: commentId,
@@ -414,7 +414,7 @@ const MbComment = ({
           senderId: currentUser?._id,
         });
         const resNofi = await axios.put(
-          "http://localhost:3000/user/updateNotification",
+          "https://doge-net.onrender.com/user/updateNotification",
           {
             senderId: currentUser?._id,
             receiverId: resData.data.reply?.userId,
@@ -469,7 +469,7 @@ const MbComment = ({
       if (reply !== "" || commentData?.gif || tempFiles) {
         try {
           const resData = await axios.put(
-            `http://localhost:3000/post/addReply`,
+            `https://doge-net.onrender.com/post/addReply`,
             {
               postId: postId,
               commentId: commentId,
@@ -494,7 +494,7 @@ const MbComment = ({
             });
 
             const resNofi = await axios.put(
-              "http://localhost:3000/user/updateNotification",
+              "https://doge-net.onrender.com/user/updateNotification",
               {
                 senderId: currentUser?._id,
                 receiverId: replyUser?._id,

@@ -46,7 +46,7 @@ const Reply = ({
     try {
       const fetchUser = async () => {
         const ress = await axios.get(
-          `http://localhost:3000/user/getUser?userId=${replies?.userId}`,
+          `https://doge-net.onrender.com/user/getUser?userId=${replies?.userId}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
@@ -67,7 +67,7 @@ const Reply = ({
     try {
       const fetchRep = async () => {
         const ress = await axios.get(
-          `http://localhost:3000/post/getReply?replyId=${comment}&&commentId=${cmtId}`,
+          `https://doge-net.onrender.com/post/getReply?replyId=${comment}&&commentId=${cmtId}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
@@ -109,7 +109,7 @@ const Reply = ({
   const replyLike = async (replyId, userId) => {
     try {
       const rest = await axios.put(
-        "http://localhost:3000/post/likeReply",
+        "https://doge-net.onrender.com/post/likeReply",
         { userId, replyId },
         {
           headers: { "Content-Type": "application/json" },
@@ -130,7 +130,7 @@ const Reply = ({
           currentUser?._id !== rest.data.reply?.userId
         ) {
           const resNofi = await axios.put(
-            "http://localhost:3000/user/updateNotification",
+            "https://doge-net.onrender.com/user/updateNotification",
             {
               senderId: currentUser?._id,
               receiverId: rest.data.reply?.userId,
@@ -162,7 +162,7 @@ const Reply = ({
   const handleFollow = async () => {
     try {
       const ress = await axios.put(
-        "http://localhost:3000/post/followUser",
+        "https://doge-net.onrender.com/post/followUser",
         { followUser: user._id, followedUser: currentUser?._id },
         {
           headers: { "Content-Type": "application/json" },
@@ -176,7 +176,7 @@ const Reply = ({
         }
         if (ress.data.user.followings.includes(user?._id)) {
           const resNofi = await axios.put(
-            "http://localhost:3000/user/updateNotification",
+            "https://doge-net.onrender.com/user/updateNotification",
             {
               senderId: currentUser?._id,
               receiverId: user?._id,

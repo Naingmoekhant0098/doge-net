@@ -13,7 +13,7 @@ const path = require('path');
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173","https://doge-net.onrender.com"],
     credentials: true,
   })
 );

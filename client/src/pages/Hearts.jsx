@@ -16,7 +16,7 @@ const Hearts = ({ setNotishow, notiShow, socket }) => {
   useEffect(() => {
     const fetchNoti = async () => {
       const res = await axios.get(
-        `http://localhost:3000/user/getNotifications/${currentUser?._id}`,
+        `https://doge-net.onrender.com/user/getNotifications/${currentUser?._id}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,

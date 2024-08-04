@@ -23,7 +23,7 @@ const SignUp = () => {
     } else {
       try {
         const rest = await axios.post(
-          "http://localhost:3000/auth/sign-up",
+          "https://doge-net.onrender.com/auth/sign-up",
           formData,
           {
             headers: { "Content-Type": "application/json" },

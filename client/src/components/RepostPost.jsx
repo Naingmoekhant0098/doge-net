@@ -9,7 +9,7 @@ const RepostPost = ({ postId }) => {
     const fetchPost = async () => {
       try {
         const ress = await axios.get(
-          `http://localhost:3000/post/getPosts?postId=${postId}`,
+          `https://doge-net.onrender.com/post/getPosts?postId=${postId}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,
@@ -30,7 +30,7 @@ const RepostPost = ({ postId }) => {
   useEffect(() => {
     const fetchUser = async () => {
       const ress = await axios.get(
-        `http://localhost:3000/user/getUser?userId=${post?.userId}`,
+        `https://doge-net.onrender.com/user/getUser?userId=${post?.userId}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,

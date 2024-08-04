@@ -33,7 +33,7 @@ const SearchResults = ({socket}) => {
     try {
       const fetchPost = async () => {
         const ress = await axios.get(
-          `http://localhost:3000/post/searchPosts?searchQuery=${searchQuery}`,
+          `https://doge-net.onrender.com/post/searchPosts?searchQuery=${searchQuery}`,
           {
             headers: { "Content-Type": "application/json" },
             withCredentials: true,

@@ -34,7 +34,7 @@ const PostPage = ({ likePost, post, setSinglePost, socket , posts,setPosts }) =>
   useEffect(() => {
     const fetchPost = async () => {
       const ress = await axios.get(
-        `http://localhost:3000/post/getPosts?postId=${id}`,
+        `https://doge-net.onrender.com/post/getPosts?postId=${id}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
@@ -52,7 +52,7 @@ const PostPage = ({ likePost, post, setSinglePost, socket , posts,setPosts }) =>
   useEffect(() => {
     const fetchUser = async () => {
       const ress = await axios.get(
-        `http://localhost:3000/user/getUser?userId=${post?.userId}`,
+        `https://doge-net.onrender.com/user/getUser?userId=${post?.userId}`,
         {
           headers: { "Content-Type": "application/json" },
           withCredentials: true,
