@@ -119,7 +119,7 @@ const Dogg = ({
       }
     };
     fetchUser();
-  }, [post]);
+  }, [post?.userId]);
   const handleClose = () => {
     setIsOpen(false);
   };
