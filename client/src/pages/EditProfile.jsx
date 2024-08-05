@@ -133,7 +133,7 @@ const EditProfile = () => {
         <div className=" mt-4">
           <div className="w-20  relative mx-auto  flex items-center justify-center">
             <img
-              src={downloadUrl || user?.profile}
+              src={downloadUrl || currentUser?.profile}
               className={`p-[5px]   rounded-full w-20 h-20  object-cover z-auto  
                 ${
                   downloadPercentage > 0 && downloadPercentage < 100

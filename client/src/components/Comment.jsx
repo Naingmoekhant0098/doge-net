@@ -277,10 +277,15 @@ const Comment = ({
 
   return (
     <div>
-      <div className="flex h-auto  gap-2 mb-3 pb-2">
+      <div className="flex h-auto  gap-2 mb-3">
         <div className=" h-auto flex flex-col items-center">
-          <div className=" w-10 h-auto relative cursor-pointer">
-            <Avatar img={user?.profile}  rounded size={"sm"} className=" object-cover" />
+          <div className="   relative cursor-pointer">
+            <img
+              src={user?.profile}
+              rounded
+              size={"sm"}
+              className=" object-cover w-8 h-8 rounded-full"
+            />
             <div className=" bg-white text-black border-2 border-black rounded-full absolute  bottom-0 -right-1">
               {currentUser?._id != user?._id && (
                 <div className=" bg-white text-black border-2 border-black rounded-full absolute  -bottom-1 -right-1">
@@ -299,12 +304,12 @@ const Comment = ({
               )}
             </div>
           </div>
-          <span className=" w-2 h-full    border-l-2 mt-2  mb-2  opacity-15  z-0"></span>
+          {/* <span className=" w-2 h-full    border-l-2 mt-2  mb-2  opacity-15  z-0"></span> */}
         </div>
 
         <div className="h-auto  flex-1">
           <div className=" flex items-center   justify-between">
-            <div className=" flex items-center gap-1">
+            <div className=" flex items-center -mt-1 gap-1">
               <div className=" text-sm">{user?.username}</div>
               <div className=" text-[12px] opacity-50 mt-[3px]">
                 {/* {moment(cmt?.createdAt).fromNow()} */}
@@ -345,7 +350,7 @@ const Comment = ({
             />
           )}
 
-          <div className=" mt-2 flex items-center gap-2">
+          <div className=" mt-1 flex items-center gap-2">
             {cmt?.likes?.includes(currentUser?._id) ? (
               <div
                 className=" flex items-cent,er gap-1  transition-all duration-300 hover:bg-[#1e1f22] cursor-pointer   p-2 rounded-full"

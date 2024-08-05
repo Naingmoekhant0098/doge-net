@@ -43,27 +43,14 @@ import {
   EmailShareButton,
   EmailIcon,
   FacebookIcon,
-  FacebookMessengerIcon,
-  GabIcon,
-  HatenaIcon,
-  InstapaperIcon,
-  LineIcon,
   LinkedinIcon,
-  LivejournalIcon,
-  MailruIcon,
-  OKIcon,
   PinterestIcon,
-  PocketIcon,
   RedditIcon,
   TelegramIcon,
-  TumblrIcon,
   TwitterIcon,
   ViberIcon,
   VKIcon,
-  WeiboIcon,
   WhatsappIcon,
-  WorkplaceIcon,
-  XIcon,
   FacebookMessengerShareButton,
   TwitterShareButton,
   TelegramShareButton,
@@ -410,7 +397,7 @@ const Dogg = ({
                     Share To{" "}
                   </div>
                   <hr className="  opacity-10" />
-                  <div className=" flex flex-wrap gap-2 mt-4">
+                  <div className=" flex flex-wrap gap-2 mt-4 ">
                     <EmailShareButton>
                       <EmailIcon size={45} round={true} />
                     </EmailShareButton>
@@ -473,27 +460,25 @@ const Dogg = ({
             </div>
           </div>
 
- 
-            {/* <Link to={`/post/${post?._id}`}> */}
-            <div className="  mb-2 text-wrap text-sm  font-normal opacity-85 tracking-wide md:text-[15px] whitespace-pre">
-              {parts?.map((part, index) => {
-                if (part.startsWith("#")) {
-                  return (
-                    <Link
-                      key={index}
-                      className="text-blue-400 "
-                      to={`/searchResults?q=${part.substring(1)}`}
-                    >
-                      {part}
-                    </Link>
-                  );
-                } else {
-                  return part;
-                }
-              })}
-            </div>
-            {/* </Link> */}
-          
+          {/* <Link to={`/post/${post?._id}`}> */}
+          <div className="  mb-2 text-wrap text-sm  font-normal opacity-85 tracking-wide md:text-[15px] whitespace-pre">
+            {parts?.map((part, index) => {
+              if (part.startsWith("#")) {
+                return (
+                  <Link
+                    key={index}
+                    className="text-blue-400 "
+                    to={`/searchResults?q=${part.substring(1)}`}
+                  >
+                    {part}
+                  </Link>
+                );
+              } else {
+                return part;
+              }
+            })}
+          </div>
+          {/* </Link> */}
 
           {post?.isRepost ? (
             <RepostPost postId={post?.tweet_id} />
@@ -615,6 +600,11 @@ const Dogg = ({
               onClick={() => setIsOpenm(!isOpenm)}
             >
               <FiMessageCircle className=" text-xl" />
+              <div className="text-sm">
+                {Comment?.length + Reply?.length > 0
+                  ? Comment?.length + Reply?.length
+                  : 0}
+              </div>
             </div>
 
             <MbComment
