@@ -11,6 +11,7 @@ import { Link, useLocation, useParams } from "react-router-dom";
 import axios from "axios";
 import { IoIosArrowBack, IoIosSearch } from "react-icons/io";
 import { HiOutlineDotsCircleHorizontal } from "react-icons/hi";
+import { FaGlobe } from "react-icons/fa";
 const Profile = ({ likePost, socket, posts, setPosts }) => {
   const [tab, setTab] = useState("posts");
   const { currentUser } = useSelector((state) => state.user);
@@ -92,11 +93,17 @@ const Profile = ({ likePost, socket, posts, setPosts }) => {
   };
   return (
     <div className="px-3 md:px-0">
-      <div className=" w-full flex justify-between items-center">
-        <FaArrowLeft className=" text-xl cursor-pointer" onClick={goBack} />
+      <div className=" w-full flex justify-between items-center mb-2">
+        {currentUser?._id !== user?._id ? (
+          <FaArrowLeft className=" text-xl cursor-pointer" onClick={goBack} />
+        ) : <FaGlobe />
+      }
 
-        <div>
-          <BsThreeDots className=" text-2xl cursor-pointer" />
+        <div className=" flex flex-col gap-1 items-end cursor-pointer">
+          {/* <BsThreeDots className=" text-2xl cursor-pointer" /> */}
+          <div className=" w-4 rounded-sm bg-white h-[3px]"></div>
+          <div className=" w-3 bg-white rounded-sm h-[3px]"></div>
+          <div className=" w-2 bg-white rounded-sm h-[3px]"></div>
         </div>
       </div>
       <div className=" flex gap-5 w-full items-center mt-3">
@@ -139,7 +146,7 @@ const Profile = ({ likePost, socket, posts, setPosts }) => {
           <>
             <Link
               to={`/editProfile`}
-              className="flex-1 text-[14px] text-center border py-2 font-medium tracking-wide  cursor-pointer rounded-xl border-white border-opacity-35 transition-all duration-300 text-white hover:text-opacity-70"
+              className="flex-1 text-[14px] text-center border py- font-medium tracking-wide  cursor-pointer rounded-xl border-white border-opacity-35 transition-all duration-300 text-white hover:text-opacity-70"
             >
               Edit Profile
             </Link>

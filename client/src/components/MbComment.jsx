@@ -118,7 +118,8 @@ const MbComment = ({
       );
 
       if (resData.status === 200) {
-        // setComments((prev) => [resData.data.comment, ...prev]);
+       
+        //setComments((prev) => [resData.data.comment, ...prev]);
         socket.current.emit("new-comment", resData.data.comment);
         //setComment((prev) => [...prev, resData.data.comment]);
 
@@ -203,12 +204,10 @@ const MbComment = ({
             setContent("");
             setCommentData(null);
             setIsOpenGift(false);
-          
-           
-
+            //setComments((prev) => [resData.data.comment, ...prev]);
             socket.current.emit("new-comment1", resData.data.comment);
 
-           // setComment((prev) => [...prev, resData.data.comment]);
+            // setComment((prev) => [...prev, resData.data.comment]);
 
             const resNofi = await axios.put(
               "https://doge-net.onrender.com/user/updateNotification",
@@ -247,14 +246,11 @@ const MbComment = ({
   };
 
   useEffect(() => {
-     
-      socket.current.on("new-comment-receive1", (data) => {
- 
-        if (data) {
-          setComments((prev) => [data, ...prev]);
-        }
-      });
-     
+    socket.current.on("new-comment-receive1", (data) => {
+      if (data) {
+        setComments((prev) => [data, ...prev]);
+      }
+    });
   }, []);
 
   useEffect(() => {
@@ -279,7 +275,16 @@ const MbComment = ({
 
       if (rest.status === 200) {
         // setLikeComment(rest.data.comment);
-
+        setComments(
+          comments?.map((pt) =>
+            pt._id === rest.data.comment._id
+              ? {
+                  ...pt,
+                  likes: rest.data.comment.likes,
+                }
+              : pt
+          )
+        );
         socket.current.emit("like-comment", {
           ...rest.data.comment,
           senderId: currentUser?._id,
@@ -418,7 +423,7 @@ const MbComment = ({
           socket.current.emit("sendNotification", resNofi.data);
         }
 
-        //setRep((prev) => [...prev, resData.data.reply]);
+        setRep((prev) => [...prev, resData.data.reply]);
 
         toast(
           "success commented",

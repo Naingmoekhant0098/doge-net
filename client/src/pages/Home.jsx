@@ -18,7 +18,7 @@ const Home = ({
   }, [currentUser]);
 
   return (
-    <div className=" flex flex-col gap-6 pb-20 pt-4 ">
+    <div className=" flex flex-col gap-4 pb-20 pt-4 px-1 ">
       {posts?.map((post, i) => {
         return (
           <Dogg

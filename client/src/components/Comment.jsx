@@ -54,7 +54,7 @@ const Comment = ({
       }
     };
     fetchUser();
-  }, [cmt]);
+  }, [cmt?.userId]);
   const navigate = useNavigate();
   const uploadHandler = (e) => {
     if (e.target.files) {
@@ -280,7 +280,7 @@ const Comment = ({
       <div className="flex h-auto  gap-2 mb-3 pb-2">
         <div className=" h-auto flex flex-col items-center">
           <div className=" w-10 h-auto relative cursor-pointer">
-            <Avatar img={user?.profile} rounded size={"sm"} />
+            <Avatar img={user?.profile}  rounded size={"sm"} className=" object-cover" />
             <div className=" bg-white text-black border-2 border-black rounded-full absolute  bottom-0 -right-1">
               {currentUser?._id != user?._id && (
                 <div className=" bg-white text-black border-2 border-black rounded-full absolute  -bottom-1 -right-1">

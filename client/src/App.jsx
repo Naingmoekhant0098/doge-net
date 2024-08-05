@@ -61,7 +61,7 @@ const App = () => {
     TimeAgo.addDefaultLocale(en);
     TimeAgo.addLocale(ru);
   }, [TimeAgo]);
-  // 
+  //
   const location = useLocation();
   socket.current = io("https://doge-net.onrender.com");
   useEffect(() => {
@@ -73,7 +73,6 @@ const App = () => {
   }, [sendPost]);
 
   socket.current.on("receiveLike", (like) => {
-     
     if (like && posts) {
       setPosts(
         posts?.map((pt) =>
@@ -109,6 +108,7 @@ const App = () => {
   });
 
   const likePost = async (postId) => {
+   
     try {
       const resLike = await axios.put(
         "https://doge-net.onrender.com/post/likePost",
@@ -119,20 +119,20 @@ const App = () => {
         }
       );
       if (resLike.status === 200) {
+        setPosts(
+          posts.map((pt) =>
+            pt._id === resLike.data.post._id
+              ? {
+                  ...pt,
+                  likes: resLike?.data?.post.likes,
+                }
+              : pt
+          )
+        );
         socket.current.emit("send-like", {
           ...resLike.data.post,
           senderId: currentUser?._id,
         });
-        // setPosts(
-        //   posts.map((pt) =>
-        //     pt._id === resLike.data.post._id
-        //       ? {
-        //           ...pt,
-        //           likes: resLike.data.post.likes,
-        //         }
-        //       : pt
-        //   )
-        // );
 
         if (
           resLike?.data?.post?.likes?.includes(currentUser?._id) &&
@@ -230,31 +230,31 @@ const App = () => {
               path="/searchResults"
               element={<SearchResults socket={socket} />}
             />
-             
-              <Route
-                path="/doge"
-                element={
-                  <Doge
-                    posts={posts}
-                    setSendPost={setSendPost}
-                    setPosts={setPosts}
-                    setSendLike={setSendLike}
-                    comments={comments}
-                  />
-                }
-              />
-              <Route
-                path="/notifications"
-                element={
-                  <Hearts
-                    setNotishow={setnotiShow}
-                    notiShow={notiShow}
-                    socket={socket}
-                  />
-                }
-              />
-              <Route path="/editProfile" element={<EditProfile />} />
-             
+
+            <Route
+              path="/doge"
+              element={
+                <Doge
+                  posts={posts}
+                  setSendPost={setSendPost}
+                  setPosts={setPosts}
+                  setSendLike={setSendLike}
+                  comments={comments}
+                />
+              }
+            />
+            <Route
+              path="/notifications"
+              element={
+                <Hearts
+                  setNotishow={setnotiShow}
+                  notiShow={notiShow}
+                  socket={socket}
+                />
+              }
+            />
+            <Route path="/editProfile" element={<EditProfile />} />
+
             <Route
               path="/post/:id"
               element={

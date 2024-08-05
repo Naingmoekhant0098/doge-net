@@ -31,7 +31,7 @@ const Nav = ({ setNotishow, notiShow }) => {
       className={`sticky top-0  transition-all duration-300  flex items-center bg-black justify-center md:justify-between z-30`}
     >
       <div>
-        <img src="/doge.png" className=" w-14  py-2 md:mt-0" />
+        <img src="/doge.png" className=" w-14  md:py-2 md:mt-0" />
       </div>
       <div className=" items-center gap-3  cursor-pointer flex justify-between w-full md:w-auto bottom-0 fixed  md:relative px-6 md:px-0 bg-black pb-1 z-50">
         {tab != "/" && (

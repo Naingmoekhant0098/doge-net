@@ -242,9 +242,9 @@ const Dogg = ({
   });
   return (
     <div className="">
-      <div className=" w-full flex gap-3">
+      <div className=" w-full flex gap-2">
         <div className=" h-auto flex flex-col items-center">
-          <div className=" w-10 h-10 relative cursor-pointer">
+          <div className=" w-10 h-10 relative cursor-pointer ">
             <img
               src={user?.profile}
               className=" rounded-full w-10 h-10 object-cover z-auto"
@@ -267,7 +267,7 @@ const Dogg = ({
             )}
           </div>
 
-          <span className=" w-2 h-full   border-l-2 mt-4  opacity-30  z-0"></span>
+          {/* <span className=" w-2 h-full   border-l-2 mt-4  opacity-30  z-0"></span>
           <div className=" relative mt-3">
             <img
               src="https://images.ctfassets.net/lh3zuq09vnm2/yBDals8aU8RWtb0xLnPkI/19b391bda8f43e16e64d40b55561e5cd/How_tracking_user_behavior_on_your_website_can_improve_customer_experience.png"
@@ -284,11 +284,11 @@ const Dogg = ({
               className="w-4 md:w-5 rounded-full h-4 md:h-5  object-cover absolute top-5 md:top-7  -right-4 z-10"
               alt=""
             />
-          </div>
+          </div> */}
         </div>
 
         <div className="flex-1 h-auto  ">
-          <div className=" relative -mt-1   flex justify-between items-center">
+          <div className=" relative -mt-[5px]   flex justify-between items-center">
             <div className=" flex group items-center  gap-1 font-semibold">
               <Link to={`/@${user?.username}`}>
                 <div className="  cursor-pointer   hover:underline">
@@ -340,11 +340,11 @@ const Dogg = ({
 
             <div className=" group">
               <HiDotsHorizontal
-                className=" block md:hidden text-3xl cursor-pointer transition-all duration-500 hover:bg-[#1e1f22]  p-1 text-[30px] rounded-full"
+                className=" block opacity-60 md:hidden text-3xl cursor-pointer transition-all duration-500 hover:bg-[#1e1f22]  p-1 text-[30px] rounded-full"
                 onClick={() => setIsOpen(!isOpen)}
               />
               <HiDotsHorizontal
-                className="hidden md:block text-3xl cursor-pointer transition-all duration-500 hover:bg-[#1e1f22]  p-1 text-[30px] rounded-full"
+                className="hidden opacity-60 md:block text-3xl cursor-pointer transition-all duration-500 hover:bg-[#1e1f22]  p-1 text-[30px] rounded-full"
                 onClick={() => setOpen(!open)}
               />
 
@@ -352,7 +352,7 @@ const Dogg = ({
                 open={isOpen}
                 onClose={handleClose}
                 position="bottom"
-                className=" p-6 p rounded-[30px] rounded-b bg-[#1e1f22] text-white z-50"
+                className=" p-6  rounded-[30px] rounded-b bg-[#1e1f22] text-white z-50"
               >
                 <Drawer.Items>
                   <div
@@ -473,9 +473,9 @@ const Dogg = ({
             </div>
           </div>
 
-          <div>
+ 
             {/* <Link to={`/post/${post?._id}`}> */}
-            <div className="  mb-3 text-wrap text-sm  font-normal opacity-85 tracking-wide md:text-[15px] whitespace-pre">
+            <div className="  mb-2 text-wrap text-sm  font-normal opacity-85 tracking-wide md:text-[15px] whitespace-pre">
               {parts?.map((part, index) => {
                 if (part.startsWith("#")) {
                   return (
@@ -493,7 +493,7 @@ const Dogg = ({
               })}
             </div>
             {/* </Link> */}
-          </div>
+          
 
           {post?.isRepost ? (
             <RepostPost postId={post?.tweet_id} />
@@ -501,13 +501,13 @@ const Dogg = ({
             <>
               {post?.images?.length > 0 && (
                 <div className="  flex  w-full   pr-0 md:pr-2 ">
-                  <div className="  md:hidden flex gap-2  overflow-x-scroll    w-full   px-2 scrollBar scroll-smooth ">
+                  <div className="  md:hidden flex gap-2  overflow-x-scroll    w-full  scrollBar scroll-smooth ">
                     {post?.images?.map((ptt, index) => {
                       return (
                         <img
                           key={index}
                           src={ptt}
-                          className="w-[250px]  min-h-[250px]  object-cover rounded-lg"
+                          className="w-[250px]  h-[300px]  object-cover rounded-lg"
                           alt="not found"
                           onClick={() => {
                             setIsShow(true);
@@ -550,7 +550,7 @@ const Dogg = ({
 
                             <img
                               src={ptt}
-                              className="max-w-auto min-h-[300px] object-cover rounded-lg"
+                              className="max-w-auto h-[250px] object-cover rounded-lg"
                               alt=""
                               onClick={() => {
                                 setIsShow(true);
@@ -568,7 +568,7 @@ const Dogg = ({
               {post?.gif && (
                 <img
                   src={post?.gif}
-                  className=" w-[250px]  min-h-[300px]  object-cover rounded-lg"
+                  className=" w-[250px]   h-[300px]  object-cover rounded-lg"
                   alt="not found"
                   onClick={() => {
                     setIsShow(true);
@@ -584,10 +584,10 @@ const Dogg = ({
             {post?.likes.includes(currentUser?._id) ? (
               <div
                 className=" flex items-center gap-1  transition-all duration-300 hover:bg-[#1e1f22] cursor-pointer   p-2 rounded-full"
-                onClick={() => likePost(post._id)}
+                onClick={() => likePost(post?._id)}
               >
                 <FaHeart className=" text-xl  isHeart " />
-                {/* <div className=" text-sm">12</div> */}
+                <div className=" text-sm">{post?.likes?.length}</div>
               </div>
             ) : (
               <div
@@ -595,12 +595,19 @@ const Dogg = ({
                 onClick={() => likePost(post?._id)}
               >
                 <FaRegHeart className=" text-xl " />
-                {/* <div className=" text-sm">12</div> */}
+                <div className=" text-sm">
+                  {post?.likes.length > 0 ? post?.likes?.length : 0}
+                </div>
               </div>
             )}
             <Link to={`/post/${post?._id}`}>
               <div className="hidden md:flex items-center gap-1 transition-all duration-300 hover:bg-[#1e1f22] cursor-pointer p-2 rounded-full">
                 <FiMessageCircle className=" text-xl" />
+                <div className="text-sm">
+                  {Comment?.length + Reply?.length > 0
+                    ? Comment?.length + Reply?.length
+                    : 0}
+                </div>
               </div>
             </Link>
             <div
@@ -638,7 +645,7 @@ const Dogg = ({
             </div>
           </div>
 
-          <div className=" flex gap-1 items-center opacity-70 pl-2 ">
+          {/* <div className=" flex gap-1 items-center opacity-70 pl-2 ">
             <div
               className=" text-[14px] cursor-pointer"
               onClick={() => setIsOpenm(!isOpenm)}
@@ -654,11 +661,11 @@ const Dogg = ({
             <div className=" text-[14px]">
               {post?.likes.length} {post?.likes.length > 1 ? " likes" : "like"}
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
 
-      <hr className=" mt-10  opacity-10" />
+      <hr className=" mt-2 opacity-10" />
 
       {isShow && (
         <ImageShow
