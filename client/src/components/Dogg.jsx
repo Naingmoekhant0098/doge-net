@@ -620,7 +620,7 @@ const Dogg = ({
             />
 
             <Link
-              to={`repost?pId=${post?._id}`}
+              to={`/repost?pId=${post?._id}`}
               className=" flex items-center gap-1 transition-all duration-300 hover:bg-[#1e1f22] cursor-pointer p-2 rounded-full"
             >
               <AiOutlineRetweet className=" text-xl" />
