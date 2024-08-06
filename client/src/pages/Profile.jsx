@@ -190,11 +190,11 @@ const Profile = ({ likePost, socket, posts, setPosts }) => {
           <>
             <Link
               to={`/editProfile`}
-              className="flex-1 text-[14px] text-center border py-2 font-medium tracking-wide  cursor-pointer rounded-xl border-white border-opacity-35 transition-all duration-300 text-white hover:text-opacity-70"
+              className="flex-1 text-[14px] text-center border py-1 md:py-2 font-medium tracking-wide  cursor-pointer rounded-xl border-white border-opacity-35 transition-all duration-300 text-white hover:text-opacity-70"
             >
               Edit Profile
             </Link>
-            <div className=" flex-1 text-center text-[14px] font-medium  border py-2 tracking-wide rounded-xl cursor-pointer border-white border-opacity-35 transition-all duration-300 text-white hover:text-opacity-70">
+            <div className=" flex-1 text-center text-[14px] font-medium  border py-1 md:py-2 tracking-wide rounded-xl cursor-pointer border-white border-opacity-35 transition-all duration-300 text-white hover:text-opacity-70">
               Share Profile
             </div>
           </>
