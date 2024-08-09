@@ -118,7 +118,6 @@ const MbComment = ({
       );
 
       if (resData.status === 200) {
-       
         //setComments((prev) => [resData.data.comment, ...prev]);
         socket.current.emit("new-comment", resData.data.comment);
         //setComment((prev) => [...prev, resData.data.comment]);
@@ -248,7 +247,9 @@ const MbComment = ({
   useEffect(() => {
     socket.current.on("new-comment-receive1", (data) => {
       if (data) {
-        setComments((prev) => [data, ...prev]);
+        if (postId === data?.postId) {
+          setComments((prev) => [data, ...prev]);
+        }
       }
     });
   }, []);
@@ -527,7 +528,9 @@ const MbComment = ({
         )
       );
 
-      setRep([...rps, data]);
+      if (postId === data?.postId) {
+        setRep([...rps, data]);
+      }
     }
   });
 

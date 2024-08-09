@@ -298,44 +298,44 @@ const Profile = ({ likePost, socket, posts, setPosts }) => {
 
           <div className=" flex flex-col gap-4 mt-4">
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <HiUserAdd className="text-2xl" />
-              <span className=" text-[14px]">Follow and invite friends</span>
+              <HiUserAdd className="text-3xl" />
+              <span className=" text-[16px]">Follow and invite friends</span>
             </div>
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <HiBell className="text-2xl" />
-              <span className=" text-[14px]">Notifications</span>
+              <HiBell className="text-3xl" />
+              <span className=" text-[16px]">Notifications</span>
             </div>
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <HiHeart className="text-2xl" />
-              <span className=" text-[14px]"> Liked</span>
+              <HiHeart className="text-3xl" />
+              <span className=" text-[16px]"> Liked</span>
             </div>
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <HiBookmark className="text-2xl" />
-              <span className=" text-[14px]"> Saved</span>
+              <HiBookmark className="text-3xl" />
+              <span className=" text-[16px]"> Saved</span>
             </div>
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <FaLock className="text-xl" />
-              <span className=" text-[14px]">Privacy</span>
+              <FaLock className="text-2xl" />
+              <span className=" text-[16px]">Privacy</span>
             </div>
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <FaUniversalAccess className="text-xl" />
-              <span className=" text-[14px]">Accessibility</span>
+              <FaUniversalAccess className="text-3xl" />
+              <span className=" text-[16px]">Accessibility</span>
             </div>
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <HiUserCircle className="text-2xl" />
-              <span className=" text-[14px]">Account</span>
+              <HiUserCircle className="text-3xl" />
+              <span className=" text-[16px]">Account</span>
             </div>
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <IoIosHelpCircle className="text-2xl" />
-              <span className=" text-[14px]">Help</span>
+              <IoIosHelpCircle className="text-3xl" />
+              <span className=" text-[16px]">Help</span>
             </div>
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <FaExclamationCircle className="text-2xl" />
-              <span className=" text-[14px]"> About</span>
+              <FaExclamationCircle className="text-3xl" />
+              <span className=" text-[16px]"> About</span>
             </div>
             <div className=" flex items-center gap-2 opacity-65 cursor-pointer">
-              <IoMdLogOut className="text-2xl" />
-              <span className=" text-[14px]"> Log out</span>
+              <IoMdLogOut className="text-3xl" />
+              <span className=" text-[16px]"> Log out</span>
             </div>
           </div>
         </Drawer.Items>
