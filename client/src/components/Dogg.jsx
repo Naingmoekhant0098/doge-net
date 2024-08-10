@@ -213,7 +213,7 @@ const Dogg = ({
   useEffect(() => {
     try {
       socket.current.on("new-comment-receive1", (data) => {
-        if (data) {
+        if (data && post?._id === data?.postId) {
           setComment((prev) => [...prev, data]);
         }
       });
@@ -223,7 +223,7 @@ const Dogg = ({
   }, []);
 
   socket.current.on("new-reply-receive1", (data) => {
-    if (data) {
+    if (data && post?._id === data?.postId) {
       setReply((prev) => [...prev, data]);
     }
   });

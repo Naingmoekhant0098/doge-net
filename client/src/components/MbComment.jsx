@@ -246,13 +246,15 @@ const MbComment = ({
 
   useEffect(() => {
     socket.current.on("new-comment-receive1", (data) => {
-      if (data) {
-        if (postId === data?.postId) {
-          setComments((prev) => [data, ...prev]);
-        }
+      
+      
+      if (data && postId === data?.postId) {
+        //setComment((prev) => [data, ...prev]);
+        setComments((prev) => [data, ...prev]);
       }
     });
   }, []);
+ 
 
   useEffect(() => {
     if (isOpenm) {
@@ -516,17 +518,17 @@ const MbComment = ({
   };
 
   socket.current.on("new-reply-receive1", (data) => {
-    if (data && comments) {
-      setComments(
-        comments?.map((cmt) =>
-          cmt?._id === data?.commentId
-            ? {
-                ...cmt,
-                replies: [...cmt?.replies, data._id],
-              }
-            : cmt
-        )
-      );
+    if (data) {
+      // setComments(
+      //   comments?.map((cmt) =>
+      //     cmt?._id === data?.commentId
+      //       ? {
+      //           ...cmt,
+      //           replies: [...cmt?.replies, data._id],
+      //         }
+      //       : cmt
+      //   )
+      // );
 
       if (postId === data?.postId) {
         setRep([...rps, data]);
